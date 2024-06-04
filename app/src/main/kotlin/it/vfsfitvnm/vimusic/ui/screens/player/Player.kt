@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -54,6 +55,7 @@ import it.vfsfitvnm.vimusic.service.PlayerService
 import it.vfsfitvnm.vimusic.ui.components.BottomSheet
 import it.vfsfitvnm.vimusic.ui.components.BottomSheetState
 import it.vfsfitvnm.vimusic.ui.components.LocalMenuState
+import it.vfsfitvnm.vimusic.ui.components.collapsedAnchor
 import it.vfsfitvnm.vimusic.ui.components.rememberBottomSheetState
 import it.vfsfitvnm.vimusic.ui.components.themed.BaseMediaItemMenu
 import it.vfsfitvnm.vimusic.ui.components.themed.IconButton
@@ -283,36 +285,57 @@ fun Player(
         }
 
         if (isLandscape) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = containerModifier
-                    .padding(top = 32.dp)
+                    .padding(top = 1.dp)
             ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .weight(0.66f)
-                        .padding(bottom = 16.dp)
+                IconButton(
+                    onClick = {
+                        layoutState.collapseSoft()
+                    },
+                    icon = R.drawable.chevron_down,
+                    color = Color.Black
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = containerModifier
+                        .padding(top = 32.dp)
                 ) {
-                    thumbnailContent(
+                    Box(
+                        contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
+                            .weight(0.66f)
+                            .padding(bottom = 16.dp)
+                    ) {
+                        thumbnailContent(
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                        )
+                    }
+
+                    controlsContent(
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .fillMaxHeight()
+                            .weight(1f)
                     )
                 }
-
-                controlsContent(
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
-                        .fillMaxHeight()
-                        .weight(1f)
-                )
             }
         } else {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = containerModifier
-                    .padding(top = 54.dp)
+                    .padding(top = 10.dp)
             ) {
+                IconButton(
+                    onClick = {
+                        layoutState.collapseSoft()
+                    },
+                    icon = R.drawable.chevron_down,
+                    color = Color.Black
+                )
+
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
